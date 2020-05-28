@@ -1,33 +1,42 @@
-const expresss = require("express");
+const express = require("express");
+const mongoose = require("mongoose");
+const cookieSession = require("cookie-session");
 const passport = require("passport");
-const GoogleStrategy = require("passport-google-oauth20");
+const bodyParser = require("body-parser");
 const keys = require("./config/keys");
 
-const app = expresss();
+require("./models/User");
+require("./models/Blog");
+require("./services/passport");
 
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: keys.googleClientID,
-      clientSecret: keys.googleClientSecret,
-      callbackURL: "/auth/google/callback",
-    },
-    (accessToken, refreshToken, profile, done) => {
-      console.log("access token", accessToken);
-      console.log("refresh token", refreshToken);
-      console.log("profile", profile);
-    }
-  )
-);
+mongoose.Promise = global.Promise;
+mongoose.connect(keys.mongoURI, { useMongoClient: true });
 
-app.get(
-  "/auth/google",
-  passport.authenticate("google", {
-    scope: ["profile", "email"],
+const app = express();
+
+app.use(bodyParser.json());
+app.use(
+  cookieSession({
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    keys: [keys.cookieKey],
   })
 );
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.get("/auth/google/callback", passport.authenticate("google"));
+require("./routes/authRoutes")(app);
+require("./routes/blogRoutes")(app);
+
+if (["production"].includes(process.env.NODE_ENV)) {
+  app.use(express.static("client/build"));
+
+  const path = require("path");
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve("client", "build", "index.html"));
+  });
+}
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT);
+app.listen(PORT, () => {
+  console.log(`Listening on port`, PORT);
+});
