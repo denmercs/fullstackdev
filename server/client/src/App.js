@@ -10,10 +10,10 @@ const App = () => {
   return (
     <>
       <Router>
+        <Header />
         <Route path="/" exact component={Landing} />
-        <Route path="/Header" component={Header} />
-        <Route path="/dashboard" component={Dashboard} />
-        <Route path="/surveyNew" component={SurveyNew} />
+        <Route path="/surveys" exact component={Dashboard} />
+        <Route path="/surveys/new" component={SurveyNew} />
       </Router>
     </>
   );
