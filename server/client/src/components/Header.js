@@ -19,7 +19,8 @@ const Header = (props) => {
           <li key="1">
             <Payments />
           </li>,
-          <li key="2">
+          <li key="3">Credits: {props.auth.credits}</li>,
+          <li key="2" style={{ margin: "0 10px" }}>
             <a href="/api/logout">Logout</a>
           </li>,
         ];
