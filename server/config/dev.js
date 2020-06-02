@@ -8,4 +8,6 @@ module.exports = {
   cookieKey: "just a random string",
   stripePublishableKey: "pk_test_aV0fFptXSImmrfG1E85kGPRu004sVf5J9S",
   stripeSecretKey: "sk_test_9Hp7DJU9ySqdOmJinLoJpuoy00cBEmorFU",
+  sendGridKey:
+    "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",
 };
