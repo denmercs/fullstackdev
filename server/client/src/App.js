@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 import { fetchUser } from "./actions/";
 import Header from "./components/Header";
 import Landing from "./components/Landing";
+import Dashboard from "./components/Dashboard";
 
-const Dashboard = () => <h2>Dashboard</h2>;
 const SurveyNew = () => <h2>SurveyNew</h2>;
 
 const App = () => {
