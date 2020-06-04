@@ -5,8 +5,7 @@ import { fetchUser } from "./actions/";
 import Header from "./components/Header";
 import Landing from "./components/Landing";
 import Dashboard from "./components/Dashboard";
-
-const SurveyNew = () => <h2>SurveyNew</h2>;
+import SurveyNew from "./components/surveys/SurveyNew";
 
 const App = () => {
   useEffect(() => {
