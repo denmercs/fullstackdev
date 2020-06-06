@@ -9,4 +9,7 @@ module.exports = function (app) {
   app.use(
     createProxyMiddleware("/api/stripe", { target: "http://localhost:5000/" })
   );
+  app.use(
+    createProxyMiddleware("/api/surveys", { target: "http://localhost:5000/" })
+  );
 };
